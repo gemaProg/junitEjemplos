@@ -3,6 +3,8 @@ package org.example;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class OperationsTest {
@@ -34,6 +36,7 @@ class OperationsTest {
     @Test
     void averageArray() {
         int[] testArray = {4, 6, 4, 6};
+        //List<Integer> testArray = List.of(4,6,4,6);
         assertEquals(5, Operations.averageArray(testArray));
     }
 
@@ -43,6 +46,5 @@ class OperationsTest {
         Operations.sortArray(actualArray, true);
         int[] expectedArray = {4, 4, 6, 6};
         assertArrayEquals(expectedArray, actualArray);
-
     }
 }
