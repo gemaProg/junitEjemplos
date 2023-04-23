@@ -1,33 +1,17 @@
 package org.example;
 
 import org.junit.jupiter.api.*;
-
-import java.util.List;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class OperationsTest {
-    private static int number;
+//@TestMethodOrder(MethodOrderer.MethodName.class)
+//@TestMethodOrder(MethodOrderer.Random.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
-    @BeforeAll
-    static void inicio(){
-        //aquí pondríamos por ejemplo si ponemos atributos, crear las instancias para luego utilizarlas, conexión a bbdd
-        System.out.println("Bienvenido a mis Pruebas Unitarias");
-
-    }
-    @AfterAll
-    static void despues(){
-        //aquí pondríamos por ejemplo si ponemos atributos, crear las instancias para luego utilizarlas, conexión a bbdd
-        System.out.println("Finalización de Pruebas Unitarias");
-    }
-    @BeforeEach
-    void inicioCadaTest(){
-        System.out.println("Prueba"+ (++number));
-    }
-    @AfterEach
-    public void despuesCadaTest(){
-        System.out.println("Prueba "+ number+ " terminada");
-    }
+class OperationsOrderTest {
+    @Order (5)
     @Test
     @DisplayName("sonPares")
     void sonPares() {
@@ -35,7 +19,7 @@ class OperationsTest {
         assertFalse(Operations.sonPares(5, 6, 3));
         assertTrue(Operations.sonPares(3, 3, 3, 3));
     }
-
+    @Order (3)
     @Test
     @DisplayName("add numbers")
     void addNumbers() {
@@ -43,7 +27,7 @@ class OperationsTest {
         double expectedNumber = 4;
         assertEquals(expectedNumber, actualNumber);
     }
-
+    @Order (4)
     @Test
     @DisplayName("multiply numbers")
     void multiplyNumbers() {
@@ -52,6 +36,7 @@ class OperationsTest {
                 () -> assertEquals(-6, Operations.multiplyNumbers(2, -3)));
     }
 
+    @Order (2)
     @Test
     @DisplayName("media Array")
     void averageArray() {
@@ -61,12 +46,13 @@ class OperationsTest {
     }
 
     @Test
+    @Order (1)
+    @DisplayName("sortArrays")
     void sortArray() {
         int[] actualArray = {4, 6, 4, 6};
         Operations.sortArray(actualArray, true);
         int[] expectedArray = {4, 4, 6, 6};
         assertArrayEquals(expectedArray, actualArray);
     }
-
 
 }

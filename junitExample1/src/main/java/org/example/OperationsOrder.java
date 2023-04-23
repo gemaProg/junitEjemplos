@@ -1,12 +1,12 @@
 package org.example;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.DoubleStream;
 
-import static java.util.Arrays.asList;
-
-public class Operations {
-    public static boolean sonPares(int ... operandos){
+public class OperationsOrder {
+    public static boolean sonPares(int ...operandos){
         //System.out.println(operandos.length);
         return operandos.length%2==0?true:false;
     }
