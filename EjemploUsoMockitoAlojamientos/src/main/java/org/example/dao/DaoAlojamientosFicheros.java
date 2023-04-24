@@ -18,9 +18,10 @@ public class DaoAlojamientosFicheros {
         File fichero1 = new File(FICHERO);
         File fichero2 = new File(FICHEROB);
         if (!fichero1.exists())
-                fichero1.createNewFile();
+            fichero1.createNewFile();
         if (!fichero2.exists())
             fichero2.createNewFile();
+
     }
     public static List<Alojamiento> leerFichero() throws IOException {
         return leerFichero(DaoAlojamientosFicheros.FICHERO);
@@ -77,6 +78,7 @@ public class DaoAlojamientosFicheros {
             os.writeObject(alojamientos);
             escrito = true;
         } catch (IOException ex) {
+            System.out.println(ex.getMessage());
             java.util.logging.Logger.getLogger(DaoAlojamientosFicheros.class.getName()).log(java.util.logging.Level.SEVERE, ex.getMessage(), ex);
         }
         return escrito;
@@ -92,7 +94,7 @@ public class DaoAlojamientosFicheros {
                                                                                     .collect(Collectors.joining("/")))
                     )
                     .forEach(pw::println);
-
+            escrito=true;
         } catch (FileNotFoundException ex) {
             java.util.logging.Logger.getLogger(DaoAlojamientosFicheros.class.getName()).log(java.util.logging.Level.SEVERE, ex.getMessage(), ex);
 

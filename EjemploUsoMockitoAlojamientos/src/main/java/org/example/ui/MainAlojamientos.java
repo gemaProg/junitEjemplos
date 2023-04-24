@@ -56,10 +56,10 @@ public class MainAlojamientos {
                     actualizarCategoria();
                     break;
                 case 5:
-                    escribirFichero();
+                    escribirFicheroBinario();
                     break;
                 case 6:
-                    escribirFicheroBinario();
+                    escribirFichero();
                     break;
                 case 7:
                     try {
