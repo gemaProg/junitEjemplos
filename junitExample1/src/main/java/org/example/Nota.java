@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.Objects;
 
-public class NotaParametrizedNested {
+public class Nota {
     private String asignatura;
     private double valor;
 
@@ -23,7 +23,7 @@ public class NotaParametrizedNested {
         this.valor = valor;
     }
 
-    public NotaParametrizedNested(String asignatura, double valor) {
+    public Nota(String asignatura, double valor) {
         super();
         this.setAsignatura(asignatura);
         this.setValor(valor);
@@ -59,7 +59,7 @@ public class NotaParametrizedNested {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        NotaParametrizedNested other = (NotaParametrizedNested) obj;
+        Nota other = (Nota) obj;
         return Objects.equals(asignatura, other.asignatura)
                 && Double.doubleToLongBits(valor) == Double.doubleToLongBits(other.valor);
     }

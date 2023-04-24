@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class NotaParametrizedTest {
+class NotaTest {
     @BeforeAll
     static void inicio() {
         //aquí pondríamos por ejemplo si ponemos atributos, crear las instancias para luego utilizarlas, conexión a bbdd
@@ -36,15 +36,15 @@ class NotaParametrizedTest {
 
     @Test
     void getCalificacion() {
-        NotaParametrizedNested nota = new NotaParametrizedNested("matematicas", 0);
+        Nota nota = new Nota("matematicas", 0);
         String calificacion = nota.getCalificacion();
         assertEquals("MuyDeficiente", calificacion);
 
-        NotaParametrizedNested nota2 = new NotaParametrizedNested("matematicas", 2);
+        Nota nota2 = new Nota("matematicas", 2);
         String calificacion2 = nota2.getCalificacion();
         assertEquals("MuyDeficiente", calificacion2);
 
-        NotaParametrizedNested nota3 = new NotaParametrizedNested("matematicas", 3);
+        Nota nota3 = new Nota("matematicas", 3);
         String calificacion3 = nota3.getCalificacion();
         assertEquals("MuyDeficiente", calificacion3);
     }
@@ -56,7 +56,7 @@ class NotaParametrizedTest {
         @ParameterizedTest
         @ValueSource(ints = {2, 0, 3})
         void getCalificacionParametrized(double valorNota) {
-            NotaParametrizedNested nota2 = new NotaParametrizedNested("matematicas", valorNota);
+            Nota nota2 = new Nota("matematicas", valorNota);
             String calificacion = nota2.getCalificacion();
             assertEquals("MuyDeficiente", calificacion);
         }
@@ -68,13 +68,13 @@ class NotaParametrizedTest {
                 "1,1,2",
                 "2,2,4"})
         void suma(int a, int b, int resultado) {
-            assertEquals(resultado, NotaParametrizedNested.suma(a, b));
+            assertEquals(resultado, Nota.suma(a, b));
         }
 
         @ParameterizedTest
         @MethodSource("values")
         void getCalificacionParametrizedMethod(double argumento) {
-            NotaParametrizedNested nota2 = new NotaParametrizedNested("matematicas", argumento);
+            Nota nota2 = new Nota("matematicas", argumento);
             String calificacion = nota2.getCalificacion();
             assertEquals("MuyDeficiente", calificacion);
         }
@@ -90,14 +90,14 @@ class NotaParametrizedTest {
         @DisplayName("Verificando que lanza una excepción")
         @Test
         void setValorIncorrecto() {
-            NotaParametrizedNested nota = new NotaParametrizedNested("matematicas", 2);
+            Nota nota = new Nota("matematicas", 2);
             Exception e = assertThrows(RuntimeException.class, () -> nota.setValor(-2));
             assertEquals("valor de nota no valido",e.getMessage());
         }
         @DisplayName("Verificando que no lanza una excepción")
         @Test
         void setValorCorrecto() {
-            NotaParametrizedNested nota = new NotaParametrizedNested("matematicas", 2);
+            Nota nota = new Nota("matematicas", 2);
             assertDoesNotThrow(() -> {
                 nota.setValor(8);
             });
