@@ -1,15 +1,15 @@
 package org.example.dao;
 
 import org.assertj.core.api.Assertions;
-import org.assertj.core.api.AssertionsForClassTypes;
 import org.example.common.ComparacionPorCategoriaNombre;
 import org.example.domain.Alojamiento;
+import org.example.domain.CasaRural;
 import org.example.domain.Hotel;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -26,11 +26,9 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class DaoAlojamientosTest {
-    @InjectMocks
-    DaoAlojamientosImpl daoAlojamientos;
+    @InjectMocks DaoAlojamientosImpl daoAlojamientos;
 
-    @Mock
-    Database database;
+    @Mock Database database;
 
     @Test
     void getListaAlojamientos() {
@@ -45,7 +43,7 @@ class DaoAlojamientosTest {
 
         List<Alojamiento> result = daoAlojamientos.getListaAlojamientos();
 
-        //then
+        //then;
         assertAll(
                 () -> assertThat(result).isEqualTo(lista),
                 () -> assertThat(result).isNotNull()
@@ -85,25 +83,41 @@ class DaoAlojamientosTest {
 
     @Test
     void consulta() {
-        //given
+        //Given
         List<Alojamiento> alojamientos = new ArrayList<>();
-        var hotelMad = new Hotel("Mario", "Madrid", 45, new ArrayList<>(), 5);
-        var hotelMur = new Hotel("David", "Murcia", 30, new ArrayList<>(), 3);
-        alojamientos.add(hotelMad);
-        alojamientos.add(hotelMur);
+        Alojamiento hotel1 = new Hotel("Carlota", "Valencia", 63, new ArrayList<>(), 4);
+        Alojamiento hotel2 = new Hotel("Mario", "Valencia", 45, new ArrayList<>(), 5);
+        Alojamiento hotel3 = new Hotel("Mario", "Madrid", 45, new ArrayList<>(), 5);
+        Alojamiento cr =new CasaRural("Ahmed", "Valencia", 24, new ArrayList<>(List.of(3, 5, 4)), true);
+        alojamientos.add(hotel2);
+        alojamientos.add(hotel1);
+        alojamientos.add(hotel3);
+        alojamientos.add(new CasaRural("Miguel", "Murcia", 20, new ArrayList<>(), true));
+        alojamientos.add(new CasaRural("Jorge", "Madrid", 25, new ArrayList<>(), false));
+        alojamientos.add(cr);
+        Random r = new Random();
+        for (Alojamiento alojamiento : alojamientos) {
+            alojamiento.getValoraciones().add(r.nextInt(1, 6));
+            alojamiento.getValoraciones().add(r.nextInt(1, 6));
+            alojamiento.getValoraciones().add(r.nextInt(1, 6));
+            alojamiento.getValoraciones().add(r.nextInt(1, 6));
+            alojamiento.getValoraciones().add(r.nextInt(1, 6));
+            alojamiento.getValoraciones().add(r.nextInt(1, 6));
+        }
 
-        String province = "Madrid";
-        double p1 = 40;
-        double p2 = 50;
+        //When
 
-        //when
         when(database.getListaAlojamientos()).thenReturn(alojamientos);
 
-        List<Alojamiento> respuesta = daoAlojamientos.consulta(province, p1, p2);
+        List<Alojamiento> respuesta = daoAlojamientos.consulta("Valencia", 20, 70);
 
         //then
         assertAll(
-                () -> Assertions.assertThat(respuesta).contains(hotelMad)
+                () -> Assertions.assertThat(respuesta).contains(hotel1),
+                () -> Assertions.assertThat(respuesta).contains(hotel2),
+                () -> Assertions.assertThat(respuesta).contains(cr),
+                () -> Assertions.assertThat(respuesta).doesNotContain(hotel3),
+                () -> Assertions.assertThat(respuesta).size().isEqualTo(3)
         );
 
     }
@@ -112,90 +126,93 @@ class DaoAlojamientosTest {
     void alojamientosPorValoracionMedia() {
         //given
         List<Alojamiento> lista = new ArrayList<>();
-        Hotel hotel1 = new Hotel("Mario", "Madrid", 45, new ArrayList<>(), 5);
-        Hotel hotel2 = new Hotel("David", "Murcia", 30, new ArrayList<>(), 1);
-        Hotel hotel3 = new Hotel("Sanchez", "Madrid", 50, new ArrayList<>(), 2);
-        Hotel hotel4 = new Hotel("David", "Murcia", 30, new ArrayList<>(), 4);
+        Hotel hotel1 = new Hotel("Intercontinental", "Madrid", 145, new ArrayList<>(List.of(2, 3, 2)), 5);
+        Hotel hotel2 = new Hotel("Tryp", "Murcia", 90, new ArrayList<>(List.of(3, 5, 4)), 1);
+        Hotel hotel3 = new Hotel("Silken", "Madrid", 100, new ArrayList<>(List.of(4, 5, 4)), 2);
+        Hotel hotel4 = new Hotel("Melia", "Murcia", 80, new ArrayList<>(List.of(3, 5, 4)), 4);
         lista.add(hotel1);
         lista.add(hotel2);
         lista.add(hotel3);
         lista.add(hotel4);
-        Random r = new Random();
-        for (Alojamiento alojamiento : lista) {
-            alojamiento.getValoraciones().add(r.nextInt(1, 6));
-            alojamiento.getValoraciones().add(r.nextInt(1, 6));
-            alojamiento.getValoraciones().add(r.nextInt(1, 6));
-            alojamiento.getValoraciones().add(r.nextInt(1, 6));
-        }
-        String province = "Madrid";
+
 
         //when
         when(database.getListaAlojamientos()).thenReturn(lista);
-        List<Alojamiento> respuesta = daoAlojamientos.alojamientosPorValoracionMedia(province);
+        List<Alojamiento> respuesta = daoAlojamientos.alojamientosPorValoracionMedia("Madrid");
 
         //then
         assertAll(
-                () -> Assertions.assertThat(respuesta).contains(hotel1),
-                () -> Assertions.assertThat(respuesta).contains(hotel3),
+                () -> assertThat(respuesta).contains(hotel1),
+                () -> assertThat(respuesta).contains(hotel3),
                 () -> assertThat(respuesta).isNotEqualTo(lista),
-                () -> Assertions.assertThat(respuesta).size().isEqualTo(2));
+                () -> assertThat(respuesta).size().isEqualTo(2),
+                () -> assertThat(respuesta).containsExactly(hotel1,hotel3));
+    }
+
+    @Nested
+    public class Actualizacion {
+        @Test
+        void actualizarCategoriaExistente() {
+            //given
+            List<Alojamiento> lista = new ArrayList<>();
+            Hotel hotel1 = new Hotel("Mario", "Madrid", 45, new ArrayList<>(), 5);
+            lista.add(hotel1);
+            String nombre = "Mario";
+            int categoriaNueva = 2;
+            //when
+            when(database.getListaAlojamientos()).thenReturn(lista);
+            boolean result = daoAlojamientos.actualizarCategoria(nombre, categoriaNueva);
+            //then
+            assertTrue(result);
+        }
+        @Test
+        void actualizarCategoriaHotelNoExistente() {
+            //given
+            List<Alojamiento> lista = new ArrayList<>();
+            Hotel hotel1 = new Hotel("Mario", "Madrid", 45, new ArrayList<>(), 5);
+            lista.add(hotel1);
+            String nombre = "Silken";
+            int categoriaNueva = 3;
+
+            //when
+            when(database.getListaAlojamientos()).thenReturn(lista);
+
+            boolean result = daoAlojamientos.actualizarCategoria(nombre, categoriaNueva);
+
+            //then
+            assertFalse(result);
+        }
+
     }
 
     @Test
-    void actualizarCategoria() {
-        //given
-        List<Alojamiento> lista = new ArrayList<>();
-        Hotel hotel1 = new Hotel("Mario", "Madrid", 45, new ArrayList<>(), 5);
-        lista.add(hotel1);
-
-        String nombreHotel = "Mario";
-        int nuevaCat = 2;
-
-        //when
-        when(database.getListaAlojamientos()).thenReturn(lista);
-        boolean result = daoAlojamientos.actualizarCategoria(nombreHotel, nuevaCat);
-
-        //then
-        assertTrue(result);
-
-    }
-
-    @Test
-    void consultaHoteles() {
+    void consultaHotelesOrdenados() {
         //given
         List<Alojamiento> lista = new ArrayList<>();
         Hotel hotel1 = new Hotel("Mario", "Madrid", 45, new ArrayList<>(), 5);
         Hotel hotel2 = new Hotel("David", "Murcia", 30, new ArrayList<>(), 1);
-        Hotel hotel3 = new Hotel("Sanchez", "Madrid", 50, new ArrayList<>(), 2);
-        Hotel hotel4 = new Hotel("David", "Murcia", 30, new ArrayList<>(), 4);
+        Hotel hotel3 = new Hotel("Sanchez", "Murcia", 50, new ArrayList<>(), 2);
+        Hotel hotel4 = new Hotel("David", "Mérida", 30, new ArrayList<>(), 2);
         lista.add(hotel1);
         lista.add(hotel2);
         lista.add(hotel3);
         lista.add(hotel4);
-        Random r = new Random();
-        for (Alojamiento alojamiento : lista) {
-            alojamiento.getValoraciones().add(r.nextInt(1, 6));
-            alojamiento.getValoraciones().add(r.nextInt(1, 6));
-            alojamiento.getValoraciones().add(r.nextInt(1, 6));
-            alojamiento.getValoraciones().add(r.nextInt(1, 6));
-        }
+
         boolean ascendente = true;
 
         //when
         when(database.getListaAlojamientos()).thenReturn(lista);
-        var result = daoAlojamientos.consultaHoteles(ascendente);
+        List<Hotel> respuesta = daoAlojamientos.consultaHoteles(ascendente);
 
         //then
         assertAll(
-                () -> AssertionsForClassTypes.assertThat(lista).isNotEqualTo(result),
-                () -> AssertionsForClassTypes.assertThat(lista.stream().filter(Hotel.class::isInstance)
-                        .map(Hotel.class::cast)
-                        .sorted(ascendente ? new ComparacionPorCategoriaNombre() : new ComparacionPorCategoriaNombre().reversed())
-                        .collect(Collectors.toList())).isEqualTo(result)
+                () -> assertThat(lista).isNotEqualTo(respuesta),
+                () -> assertThat(lista.stream().filter(alojamiento->alojamiento instanceof Hotel)
+                        .map(alojamiento->(Hotel)alojamiento)
+                        .sorted(new ComparacionPorCategoriaNombre())
+                        .collect(Collectors.toList())).isEqualTo(respuesta)
         );
     }
-
-
     @Test
     void getListaAlojamientosProvincia() {
         //given
@@ -208,28 +225,21 @@ class DaoAlojamientosTest {
         lista.add(hotel2);
         lista.add(hotel3);
         lista.add(hotel4);
-        Random r = new Random();
-        for (Alojamiento alojamiento : lista) {
-            alojamiento.getValoraciones().add(r.nextInt(1, 6));
-            alojamiento.getValoraciones().add(r.nextInt(1, 6));
-            alojamiento.getValoraciones().add(r.nextInt(1, 6));
-            alojamiento.getValoraciones().add(r.nextInt(1, 6));
-        }
-        String province = "Murcia";
-        String wrongProvince = "Madrid";
+
+        String provincia = "Murcia";
+        String wrongProvincia = "Madrid";
 
         //when
         when(database.getListaAlojamientos()).thenReturn(lista);
-        List<Alojamiento> result = daoAlojamientos.getListaAlojamientosProvincia(province);
+        List<Alojamiento> result = daoAlojamientos.getListaAlojamientosProvincia(provincia);
 
         //then
         assertAll(
-                () -> AssertionsForClassTypes.assertThat(lista).isNotEqualTo(result),
-                () -> Assertions.assertThat(result).doesNotContainAnyElementsOf(lista.stream()
-                        .filter(alojamiento -> alojamiento.getProvincia().equals(wrongProvince))
+                () -> assertThat(lista).isNotEqualTo(result),
+                () -> assertThat(result).doesNotContainAnyElementsOf(lista.stream()
+                        .filter(alojamiento -> alojamiento.getProvincia().equals(wrongProvincia))
                         .collect(Collectors.toList()))
         );
-
     }
 
     @Test
@@ -243,6 +253,7 @@ class DaoAlojamientosTest {
 
         //when
         when(database.getListaAlojamientos()).thenReturn(alojamientoLista);
+
         daoAlojamientos.removeAlojamiento(hotel1);
 
         //then
@@ -252,38 +263,32 @@ class DaoAlojamientosTest {
         );
         verify(database, times(1)).getListaAlojamientos();
     }
+    @Nested
+    @DisplayName("isEmpty")
+    public class estaVacia {
+        @Test
+        void isEmptyAlojamientosListVacio() {
+            //given
+            List<Alojamiento> lista = new ArrayList<>();
+            //when
+            when(database.getListaAlojamientos()).thenReturn(lista);
+            boolean result = daoAlojamientos.isEmptyAlojamientosList();
+            //then
+            assertTrue(result);
+        }
 
-    @Test
-    void isEmptyAlojamientosListVacio() {
-
-        //given
-        List<Alojamiento> lista = new ArrayList<>();
-
-        //when
-        when(database.getListaAlojamientos()).thenReturn(lista);
-        boolean result = daoAlojamientos.isEmptyAlojamientosList();
-
-        //then
-        assertTrue(result);
-
+        @Test
+        void isEmptyAlojamientosListLleno() {
+            //given
+            List<Alojamiento> lista = new ArrayList<>();
+            lista.add(new Hotel("Mario", "Madrid", 45, new ArrayList<>(), 5));
+            //when
+            when(database.getListaAlojamientos()).thenReturn(lista);
+            boolean result = daoAlojamientos.isEmptyAlojamientosList();
+            //then
+            assertFalse(result);
+        }
     }
-
-    @Test
-    void isEmptyAlojamientosListLleno() {
-
-        //given
-        List<Alojamiento> lista = new ArrayList<>();
-        lista.add(new Hotel("Mario", "Madrid", 45, new ArrayList<>(), 5));
-
-        //when
-        when(database.getListaAlojamientos()).thenReturn(lista);
-        boolean result = daoAlojamientos.isEmptyAlojamientosList();
-
-        //then
-        assertFalse(result);
-
-    }
-
     @Test
     void setAlojamientos() {
         //given
