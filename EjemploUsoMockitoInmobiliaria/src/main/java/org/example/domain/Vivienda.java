@@ -6,26 +6,23 @@
 package org.example.domain;
 
 import java.io.Serializable;
-import java.util.List;
+
 
 /**
  *
  * @author examen
  */
-public abstract class Vivienda implements Serializable, Comparable<Vivienda> {
+public class Vivienda implements Serializable, Comparable<Vivienda> {
 
     private String calle;
     private int numero;
-    private int planta;
-
     private String provincia;
     protected double precio;
     protected double m2;
 
-    public Vivienda(String calle, int numero, int planta, String provincia, double precio, List<Integer> valoraciones, double m2) {
+    public Vivienda(String calle, int numero, String provincia, double precio, double m2) {
         this.calle = calle;
         this.numero = numero;
-        this.planta = planta;
         this.provincia = provincia;
         this.precio = precio;
         this.m2 = m2;
@@ -45,14 +42,6 @@ public abstract class Vivienda implements Serializable, Comparable<Vivienda> {
 
     public void setNumero(int numero) {
         this.numero = numero;
-    }
-
-    public int getPlanta() {
-        return planta;
-    }
-
-    public void setPlanta(int planta) {
-        this.planta = planta;
     }
 
     public String getCalle() {
@@ -79,14 +68,11 @@ public abstract class Vivienda implements Serializable, Comparable<Vivienda> {
         this.precio = precio;
     }
 
-    public abstract double precioReal(double comision);
-
     @Override
     public String toString() {
         return "Vivienda{" +
                 "calle='" + calle + '\'' +
                 ", numero=" + numero +
-                ", planta=" + planta +
                 ", provincia='" + provincia + '\'' +
                 ", precio=" + precio +
                 ", m2=" + m2 +

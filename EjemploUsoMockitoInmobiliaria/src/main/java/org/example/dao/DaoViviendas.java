@@ -13,16 +13,15 @@ public interface DaoViviendas {
     boolean addvivienda(Vivienda vivienda) ;
 
     List<Vivienda> consulta(String provincia, double precio1, double precio2) ;
-    List<Vivienda> viviendasPorValoracionMedia(String provincia) ;
+    List<Vivienda> viviendasPorCalleNumero(String provincia) ;
 
-    boolean actualizarCategoria(String nombre, int categoria) ;
+    boolean actualizarm2(String nombre, double m2) ;
 
-    List<Vivienda> listadoOrdenadoPisos(boolean ascendente);
-
+    List<Vivienda>listadoOrdenadoViviendasCalle(String calle,boolean ascendente) ;
     List<Vivienda> getListaviviendasProvincia(String provincia) ;
 
-    void removevivienda(Vivienda vivienda) ;
+    void removeVivienda(Vivienda vivienda) ;
 
-    void setviviendas(List<Vivienda> viviendas);
-    boolean isEmptyviviendasList() ;
+    void setViviendas(List<Vivienda> viviendas);
+    boolean isEmptyViviendasList() ;
 }

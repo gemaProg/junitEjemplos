@@ -2,7 +2,6 @@ package org.example.dao;
 
 import org.example.common.ComparacionPorCalleNumero;
 import org.example.common.m2Exception;
-import org.example.common.ComparacionPorCategoriaNombre;
 import org.example.common.Comprobacion;
 import org.example.domain.Vivienda;
 
@@ -32,6 +31,16 @@ public class DaoViviendasImpl implements DaoViviendas {
         return lista.add(vivienda);
     }
 
+    @Override
+    public List<Vivienda> getListaviviendas() {
+        return database.getListaViviendas();
+    }
+
+    @Override
+    public boolean addvivienda(Vivienda vivienda) {
+        return false;
+    }
+
     public List<Vivienda> consulta(String provincia, double precio1, double precio2) {
 
         return database.getListaViviendas().stream().filter(Vivienda -> Vivienda.getProvincia().equals(provincia)
@@ -39,7 +48,7 @@ public class DaoViviendasImpl implements DaoViviendas {
                 && Vivienda.getPrecio() <= precio2).collect(Collectors.toList());
     }
 
-    public List<Vivienda> ViviendasPorCalleNumero(String provincia) {
+    public List<Vivienda> viviendasPorCalleNumero(String provincia) {
 
         return database.getListaViviendas().stream()
                 .filter(Vivienda -> Vivienda.getProvincia().equals(provincia))
@@ -50,7 +59,7 @@ public class DaoViviendasImpl implements DaoViviendas {
 
     public boolean actualizarm2(String nombre, double m2) {
         Vivienda h = database.getListaViviendas().stream()
-                .filter(hotel -> hotel.getCalle().equals(nombre)).findFirst().orElse(null);
+                .filter(vivienda -> vivienda.getCalle().equals(nombre)).findFirst().orElse(null);
         if (h != null) {
             try {
                 Comprobacion.m2Ok(m2);
@@ -65,11 +74,16 @@ public class DaoViviendasImpl implements DaoViviendas {
         return false;
     }
 
-    public List<Vivienda> listadoOrdenadoViviendasCalle(boolean ascendente) {
-        List<Vivienda> viviendas = database.getListaViviendas().stream().sorted().toList();
+    public List<Vivienda> listadoOrdenadoViviendasCalle(String calle,boolean ascendente) {
+        List<Vivienda> viviendas = database.getListaViviendas().stream().filter(v->v.getCalle().equalsIgnoreCase(calle)).sorted().toList();
         if (ascendente)
             Collections.reverse(viviendas);
         return viviendas;
+    }
+
+    @Override
+    public List<Vivienda> getListaviviendasProvincia(String provincia) {
+        return database.getListaViviendas().stream().filter(v->v.getProvincia().equalsIgnoreCase(provincia)).toList();
     }
 
     public List<Vivienda> getListaViviendasProvincia(String provincia) {
@@ -81,6 +95,7 @@ public class DaoViviendasImpl implements DaoViviendas {
     public void removeVivienda(Vivienda vivienda) {
         database.getListaViviendas().remove(vivienda);
     }
+
 
     public void setViviendas(List<Vivienda> viviendas) {
         database.setListaViviendas(viviendas);

@@ -5,8 +5,6 @@ import org.example.common.Comprobacion;
 import org.example.dao.DaoViviendas;
 import org.example.dao.DaoViviendasImpl;
 import org.example.domain.Vivienda;
-
-import java.io.IOException;
 import java.util.List;
 
 public class ServiciosViviendasImpl implements ServiciosViviendas{
@@ -26,12 +24,12 @@ public class ServiciosViviendasImpl implements ServiciosViviendas{
         return daoViviendas.isEmptyViviendasList();
     }
     public List<Vivienda> getListaViviendas() {
-        return daoViviendas.getListaViviendas();
+        return daoViviendas.getListaviviendas();
     }
 
     public boolean addVivienda(Vivienda vivienda) throws m2Exception {
          Comprobacion.m2Ok(vivienda.getM2());
-         return daoViviendas.addVivienda(vivienda);
+         return daoViviendas.addvivienda(vivienda);
      }
 
     public List<Vivienda> consulta(String provincia, double precio1, double precio2) {
@@ -44,14 +42,14 @@ public class ServiciosViviendasImpl implements ServiciosViviendas{
     }
 
 
-    public boolean actualizarCategoria(String nombre, int categoria) throws m2Exception {
-        Comprobacion.m2Ok(categoria);
-        return daoViviendas.actualizarCategoria(nombre, categoria);
+    public boolean actualizarm2(String nombre, double m2) throws m2Exception {
+        Comprobacion.m2Ok(m2);
+        return daoViviendas.actualizarm2(nombre, m2);
     }
 
 
-    public List<Vivienda> consultaViviendas(boolean ascendente) {
-        return daoViviendas.listadoOrdenadoViviendasCalle(ascendente);
+    public List<Vivienda> consultaViviendas(String calle, boolean ascendente) {
+        return daoViviendas.listadoOrdenadoViviendasCalle(calle,ascendente);
     }
 
     public List<Vivienda> getListaViviendasProvincia(String provincia) {
@@ -59,41 +57,8 @@ public class ServiciosViviendasImpl implements ServiciosViviendas{
     }
 
     public void removeVivienda(Vivienda vivienda) {
-        daoViviendas.removeVivienda(vivienda);;
+        daoViviendas.removeVivienda(vivienda);
     }
 
-    public void crearFicheros() throws IOException {
-        DaoViviendasFicheros.crearFicheros();
-    }
-    public boolean cargarFichero() throws IOException {
-        return cargarFichero(DaoViviendasFicheros.FICHERO);
-    }
-    public boolean cargarFichero(String fichero) throws IOException {
-        boolean cargado = false;
-        List<Vivienda> viviendas = DaoViviendasFicheros.leerFichero(fichero);
-        if (viviendas != null  && viviendas.size()!=0) {
-            daoViviendas.setViviendas(viviendas);
-            cargado = true;
-        }
-        return cargado;
-    }
-
-    public boolean escribirFichero() {
-        return DaoViviendasFicheros.escribirFichero(daoViviendas.getListaViviendas());
-    }
-
-    public boolean escribirFicheroBinario() {
-        return DaoViviendasFicheros.escribirFicheroBinario(daoViviendas.getListaViviendas());
-    }
-
-    public boolean cargarFicheroBinario() {
-        boolean cargado = false;
-        List<Vivienda> viviendas =DaoViviendasFicheros.leerFicheroBinario();
-        if (viviendas != null) {
-            daoViviendas.setViviendas(viviendas);
-            cargado = true;
-        }
-        return cargado;
-    }
 }
 
