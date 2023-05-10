@@ -76,17 +76,14 @@ public class DaoAlojamientosImpl implements DaoAlojamientos {
     }
 
     public List<Alojamiento> getListaAlojamientosProvincia(String provincia) {
-
         return database.getListaAlojamientos().stream()
                 .filter(alojamiento -> alojamiento.getProvincia().equals(provincia))
                 .collect(Collectors.toList());
     }
 
     public void removeAlojamiento(Alojamiento alojamiento) {
-
         database.getListaAlojamientos().remove(alojamiento);
     }
-
 
     public void setAlojamientos(List<Alojamiento> alojamientos) {
         database.setListaAlojamientos(alojamientos);
