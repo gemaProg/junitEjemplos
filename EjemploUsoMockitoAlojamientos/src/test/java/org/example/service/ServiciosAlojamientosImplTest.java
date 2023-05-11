@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import lombok.extern.log4j.Log4j2;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.assertj.core.api.AbstractBooleanAssert;
 import org.assertj.core.api.Assertions;
 import org.example.common.CategoriaException;
@@ -27,9 +30,10 @@ import static org.mockito.Mockito.when;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Log4j2
 @ExtendWith(MockitoExtension.class)
 class ServiciosAlojamientosImplTest {
-
+    private static final Logger logger = LogManager.getLogger(ServiciosAlojamientosImplTest.class);
     @InjectMocks
     ServiciosAlojamientosImpl serviciosAlojamientosImpl;
 
@@ -62,6 +66,7 @@ class ServiciosAlojamientosImplTest {
 
         //Then
         assertThat(respuesta).isEqualTo(alojamientos);
+        log.info("Ejecutado test getListaAlojamientos");
     }
 
     @Test
@@ -93,6 +98,7 @@ class ServiciosAlojamientosImplTest {
             try {
                 respuesta = serviciosAlojamientosImpl.addAlojamiento(h);
             } catch (CategoriaException e) {
+                log.error("nivel error para comunicar errores, utilizado en excepciones");
                 throw new RuntimeException(e);
             }
 
@@ -117,6 +123,7 @@ class ServiciosAlojamientosImplTest {
             } catch (CategoriaException e) {
                 assertThat(e.getMessage()).isEqualToIgnoringCase("La categoria debe estar entre 1 y 5");
                 assertThat(respuesta).isFalse();
+                log.error("Test ha detectado categoría no válida");
             }
 
             //then

@@ -1,0 +1,5 @@
+2023-05-15 12:18:39.776 INFO  [main] org.example.service.ServiciosAlojamientosImplTest - Ejecutado test getListaAlojamientos
+2023-05-15 12:20:34.408 INFO  [main] org.example.service.ServiciosAlojamientosImplTest - Ejecutado test getListaAlojamientos
+2023-05-15 12:44:05.801 ERROR [main] org.example.ui.Main - App arrancada
+2023-05-15 13:06:17.777 INFO  [main] org.example.ui.Main - App arrancada
+2023-05-15 13:07:12.735 INFO  [main] org.example.ui.Main - App arrancada

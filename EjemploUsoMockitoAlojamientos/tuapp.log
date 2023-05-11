@@ -1,0 +1,8 @@
+2023-05-15 12:21:34.757 INFO  [main] org.example.service.ServiciosAlojamientosImplTest - Ejecutado test getListaAlojamientos
+2023-05-15 12:26:05.067 INFO  [main] org.example.ui.Main - App arrancada
+2023-05-15 12:28:10.956 INFO  [main] org.example.ui.Main - App arrancada
+2023-05-15 12:29:08.081 INFO  [main] org.example.ui.Main - App arrancada
+2023-05-15 12:34:36.186 INFO  [main] org.example.ui.Main - App arrancada
+2023-05-15 12:42:51.914 ERROR [main] org.example.ui.Main - App arrancada
+2023-05-15 12:43:29.564 ERROR [main] org.example.ui.Main - App arrancada
+2023-05-15 13:07:58.971 ERROR [main] org.example.service.ServiciosAlojamientosImplTest - Test ha detectado categoría no válida
