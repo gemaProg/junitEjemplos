@@ -6,3 +6,4 @@
 2023-05-15 12:42:51.914 ERROR [main] org.example.ui.Main - App arrancada
 2023-05-15 12:43:29.564 ERROR [main] org.example.ui.Main - App arrancada
 2023-05-15 13:07:58.971 ERROR [main] org.example.service.ServiciosAlojamientosImplTest - Test ha detectado categoría no válida
+2023-05-15 21:55:09.372 FATAL [main] org.example.service.ServiciosAlojamientosImplTest - Test ha detectado categoría no válida

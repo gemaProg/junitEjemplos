@@ -123,9 +123,8 @@ class ServiciosAlojamientosImplTest {
             } catch (CategoriaException e) {
                 assertThat(e.getMessage()).isEqualToIgnoringCase("La categoria debe estar entre 1 y 5");
                 assertThat(respuesta).isFalse();
-                log.error("Test ha detectado categoría no válida");
+                log.fatal("Test ha detectado categoría no válida");
             }
-
             //then
             verify(daoAlojamientos,times(0)).addAlojamiento(h);
         }
