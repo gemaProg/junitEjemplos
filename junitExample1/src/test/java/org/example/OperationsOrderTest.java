@@ -15,9 +15,9 @@ class OperationsOrderTest {
     @Test
     @DisplayName("sonPares")
     void sonPares() {
-        assertTrue(Operations.sonPares(4, 6, 7, 7));
-        assertFalse(Operations.sonPares(5, 6, 3));
-        assertTrue(Operations.sonPares(3, 3, 3, 3));
+        assertTrue(Operations.isElementsListEven(4, 6, 7, 7));
+        assertFalse(Operations.isElementsListEven(5, 6, 3));
+        assertTrue(Operations.isElementsListEven(3, 3, 3, 3));
     }
     @Order (3)
     @Test

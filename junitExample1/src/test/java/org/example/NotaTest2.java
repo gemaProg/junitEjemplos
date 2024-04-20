@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class NotaTest {
+class NotaTest2 {
     @BeforeAll
     static void inicio() {
         //aquí pondríamos por ejemplo si ponemos atributos, crear las instancias para luego utilizarlas, conexión a bbdd
@@ -20,18 +20,18 @@ class NotaTest {
 
     @AfterAll
     static void despues() {
-        //aquí pondríamos por ejemplo si ponemos atributos, crear las instancias para luego utilizarlas, conexión a bbdd
+        //cerrar conexión bbdd, finalizar pruebas
         System.out.println("Finalización de Pruebas Unitarias");
     }
 
     @BeforeEach
     void inicioCadaTest() {
-        System.out.println("----Comienzo Test");
+        System.out.println("----Comienza el Test");
     }
 
     @AfterEach
     public void despuesCadaTest() {
-        System.out.println("----Termina Test");
+        System.out.println("----Termina el Test");
     }
 
     @Test
@@ -73,8 +73,8 @@ class NotaTest {
 
         @ParameterizedTest
         @MethodSource("values")
-        void getCalificacionParametrizedMethod(double argumento) {
-            Nota nota2 = new Nota("matematicas", argumento);
+        void getCalificacionParametrizedMethod(double valorNota) {
+            Nota nota2 = new Nota("matematicas", valorNota);
             String calificacion = nota2.getCalificacion();
             assertEquals("MuyDeficiente", calificacion);
         }

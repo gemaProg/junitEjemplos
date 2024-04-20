@@ -2,11 +2,9 @@ package org.example;
 
 import org.junit.jupiter.api.*;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-class OperationsTest {
+class OperationsTest1 {
     private static int number;
 
     @BeforeAll
@@ -31,9 +29,9 @@ class OperationsTest {
     @Test
     @DisplayName("sonPares")
     void sonPares() {
-        assertTrue(Operations.sonPares(4, 6, 7, 7));
-        assertFalse(Operations.sonPares(5, 6, 3));
-        assertTrue(Operations.sonPares(3, 3, 3, 3));
+        assertTrue(Operations.isElementsListEven(4, 6, 7, 7));
+        assertFalse(Operations.isElementsListEven(5, 6, 3));
+        assertTrue(Operations.isElementsListEven(3, 3, 3, 3));
     }
 
     @Test

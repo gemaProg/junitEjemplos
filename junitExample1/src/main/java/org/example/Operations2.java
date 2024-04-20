@@ -8,7 +8,7 @@ import java.util.stream.DoubleStream;
 public class Operations2 {
     public boolean sonPares(int... operandos) {
         //System.out.println(operandos.length);
-        return operandos.length % 2 == 0 ? true : false;
+        return operandos.length % 2 == 0;
     }
 
     public double addNumbers(double... operandos) {
@@ -22,7 +22,6 @@ public class Operations2 {
         return Arrays.stream(operandos).sum();
         //return Arrays.stream(operandos).reduce(0, (a, b) -> a + b);
         //return Arrays.stream(operandos).reduce(0,Double::sum);
-
     }
 
     public double multiplyNumbers(double... operandos) {

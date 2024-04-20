@@ -25,8 +25,8 @@ public class Nota {
 
     public Nota(String asignatura, double valor) {
         super();
-        this.setAsignatura(asignatura);
-        this.setValor(valor);
+        this.asignatura= asignatura;
+        this.valor=valor;
     }
 
     public String getCalificacion() {

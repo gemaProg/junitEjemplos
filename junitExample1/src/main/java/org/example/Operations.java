@@ -6,9 +6,9 @@ import java.util.stream.DoubleStream;
 import static java.util.Arrays.asList;
 
 public class Operations {
-    public static boolean sonPares(int ... operandos){
+    public static boolean isElementsListEven(int ... operandos){
         //System.out.println(operandos.length);
-        return operandos.length%2==0?true:false;
+        return operandos.length % 2 == 0;
     }
 
     public static double addNumbers(double ...operandos) {

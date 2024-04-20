@@ -8,7 +8,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class Operations2Test {
     private static int number;
-    private final Operations2 op = new Operations2(); // O lo inicializamos aquí o en el método con anotación BeforeEach
+    private Operations2 op; //= new Operations2(); // O lo inicializamos en el constructor, aquí o en el método con anotación BeforeEach
+
+    public Operations2Test() {
+        this.op = new Operations2();
+    }
+
     @BeforeAll
     static void inicio(){
         //aquí pondríamos por ejemplo si ponemos atributos (ojo estáticos, por lo que con cuidado), crear las instancias para luego utilizarlas, conexión a bbdd
@@ -24,7 +29,7 @@ class Operations2Test {
         /*Cada test (método con anotación @Test) crea una instancia nueva de la clase en la que se encuentra, y antes de ejecutar
         el test ejecutará este método. EL inicializar aquí la instancia evita tener que declarar el atributo estático
         o inicializarla arriba*/
-        // op = new Operations2();
+        //op = new Operations2();
         //OJO entre métodos de Test no se guarda el estado, de ahí que el number deba ser estático para hacer su cometido
         System.out.println("Prueba"+ (++number));
     }
