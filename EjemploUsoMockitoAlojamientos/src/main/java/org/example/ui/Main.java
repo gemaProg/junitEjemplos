@@ -9,9 +9,9 @@ import org.apache.logging.log4j.Logger;
 public class Main {
     private static final Logger logger = LogManager.getLogger(Main.class);
     public static void main(String[] args) {
-        log.info("App arrancada");
+        log.error("App arrancada");
         MainAlojamientos main = new MainAlojamientos();
         main.main();
-        log.info("App finalizada");
+        log.error("App finalizada");
     }
 }
