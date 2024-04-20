@@ -36,16 +36,16 @@ public class DaoAlojamientosImpl implements DaoAlojamientos {
 
         return database.getListaAlojamientos().stream().filter(alojamiento -> alojamiento.getProvincia().equals(provincia)
                 && alojamiento.getPrecio() >= precio1
-                && alojamiento.getPrecio() <= precio2).collect(Collectors.toList());
+                && alojamiento.getPrecio() <= precio2).toList();
     }
 
     public List<Alojamiento> alojamientosPorValoracionMedia(String provincia) {
 
-        return database.getListaAlojamientos().stream()
+        List<Alojamiento> list = database.getListaAlojamientos().stream()
                 .filter(alojamiento -> alojamiento.getProvincia().equals(provincia))
-                .sorted(new ComparacionPorValoracionMedia() )
-                .collect(Collectors.toList());
-
+                .sorted(new ComparacionPorValoracionMedia())
+                .toList();
+        return list;
     }
 
     public boolean actualizarCategoria(String nombre, int categoria) {

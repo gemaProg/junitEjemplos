@@ -36,10 +36,10 @@ public class DaoAlojamientosFicheros {
                 String[] trozos = cadena.split(";");
                 if (trozos[0].equalsIgnoreCase("HOTEL")) {
                     //String nombre, String provincia, double precio, ArrayList<Integer> valoraciones, int categoria
-                    auxiliar.add(new Hotel(trozos[1], trozos[2], Double.parseDouble(trozos[3]), getValoraciones(trozos[5]), Integer.parseInt(trozos[4])));
+                    auxiliar.add(new Hotel(trozos[1], trozos[2], Double.parseDouble(trozos[3]), trozos.length==6?getValoraciones(trozos[5]):new ArrayList<>(), Integer.parseInt(trozos[4])));
                 } else if (trozos[0].equalsIgnoreCase("CASARURAL")) {
                     //String nombre, String provincia, double precio, ArrayList<Integer> valoraciones,boolean piscina
-                    auxiliar.add(new CasaRural(trozos[1], trozos[2], Double.parseDouble(trozos[3]), getValoraciones(trozos[5]), Boolean.parseBoolean(trozos[4])));
+                    auxiliar.add(new CasaRural(trozos[1], trozos[2], Double.parseDouble(trozos[3]), trozos.length==6?getValoraciones(trozos[5]):new ArrayList<>(), Boolean.parseBoolean(trozos[4])));
                 }
             }
         } catch (FileNotFoundException ex) {

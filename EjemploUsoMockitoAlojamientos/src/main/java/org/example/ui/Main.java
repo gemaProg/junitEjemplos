@@ -12,5 +12,6 @@ public class Main {
         log.info("App arrancada");
         MainAlojamientos main = new MainAlojamientos();
         main.main();
+        log.info("App finalizada");
     }
 }
