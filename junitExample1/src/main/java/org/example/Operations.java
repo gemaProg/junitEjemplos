@@ -19,7 +19,8 @@ public class Operations {
 //        for (double operando : operandos) {
 //            suma = suma + operando;
 //        }
-         return Arrays.stream(operandos).sum();
+//        return suma;
+        return Arrays.stream(operandos).sum();
         //return Arrays.stream(operandos).reduce(0, (a, b) -> a + b);
         //return Arrays.stream(operandos).reduce(0,Double::sum);
 

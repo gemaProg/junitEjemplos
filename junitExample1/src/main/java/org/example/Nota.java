@@ -64,7 +64,7 @@ public class Nota {
                 && Double.doubleToLongBits(valor) == Double.doubleToLongBits(other.valor);
     }
     //método para explicar parametrizados con csv
-    public static int suma(int a, int b){
+    public static double suma(double a, double b){
         return a+b;
     }
 

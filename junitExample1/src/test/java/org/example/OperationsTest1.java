@@ -32,6 +32,7 @@ class OperationsTest1 {
         assertTrue(Operations.isElementsListEven(4, 6, 7, 7));
         assertFalse(Operations.isElementsListEven(5, 6, 3));
         assertTrue(Operations.isElementsListEven(3, 3, 3, 3));
+        assertTrue(Operations.isElementsListEven());
     }
 
     @Test
@@ -45,7 +46,8 @@ class OperationsTest1 {
     @Test
     @DisplayName("multiply numbers")
     void multiplyNumbers() {
-        assertAll(() -> assertEquals(4, Operations.multiplyNumbers(2, 2)),
+        assertAll(
+                () -> assertEquals(4, Operations.multiplyNumbers(2, 2)),
                 () -> assertEquals(32, Operations.multiplyNumbers(2, 2, 2, 2, 2)),
                 () -> assertEquals(-6, Operations.multiplyNumbers(2, -3)));
     }
@@ -59,6 +61,7 @@ class OperationsTest1 {
     }
 
     @Test
+    @DisplayName("ordenar")
     void sortArray() {
         int[] actualArray = {4, 6, 4, 6};
         Operations.sortArray(actualArray, true);
