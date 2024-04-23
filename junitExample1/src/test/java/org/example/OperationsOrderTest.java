@@ -36,7 +36,7 @@ class OperationsOrderTest {
                 () -> assertEquals(-6, Operations.multiplyNumbers(2, -3)));
     }
 
-    @Order (2)
+    @Order (-10*10)
     @Test
     @DisplayName("media Array")
     void averageArray() {
@@ -46,7 +46,7 @@ class OperationsOrderTest {
     }
 
     @Test
-    @Order (1)
+    @Order (-10)
     @DisplayName("sortArrays")
     void sortArray() {
         int[] actualArray = {4, 6, 4, 6};

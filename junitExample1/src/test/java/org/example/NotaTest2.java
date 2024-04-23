@@ -54,7 +54,7 @@ class NotaTest2 {
     class testParametrized {
         @DisplayName("Nota insuficiente valor:2 standar valor: 0,3 limites nota")
         @ParameterizedTest
-        @ValueSource(ints = {2, 0, 3})
+        @ValueSource(doubles = {2, 0, 3,1})
         void getCalificacionParametrized(double valorNota) {
             Nota nota2 = new Nota("matematicas", valorNota);
             String calificacion = nota2.getCalificacion();
@@ -65,9 +65,9 @@ class NotaTest2 {
         // se ejecutan 9 test parametrizados y uno normal
         @ParameterizedTest
         @CsvSource({"0,0,0",
-                "1,1,2",
+                "1.0,1,2",
                 "2,2,4"})
-        void suma(int a, int b, int resultado) {
+        void suma(double a, double b, double resultado) {
             assertEquals(resultado, Nota.suma(a, b));
         }
 
@@ -81,6 +81,18 @@ class NotaTest2 {
 
         public static Stream<Double> values() {
             return Stream.of(0.0, 2.4, 2.9);
+        }
+
+        @ParameterizedTest
+        @MethodSource("valuesNotas")
+        void getCalificacionParametrizedMethod(Nota nota) {
+
+            String calificacion = nota.getCalificacion();
+            assertEquals("MuyDeficiente", calificacion);
+        }
+
+        public static Stream<Nota> valuesNotas() {
+            return Stream.of(new Nota("lengua",3),new Nota("lengua",1));
         }
     }
 

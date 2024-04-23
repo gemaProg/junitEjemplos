@@ -7,10 +7,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="EjemploUsoMockitoAlojamientos" />
+        <module name="EjemploUsoMockitoAlojamientos (2)" />
         <module name="EjemploUsoMockitoAlojamientos (1)" />
         <module name="junitExample1" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="EjemploUsoMockitoAlojamientos" target="19" />
+    </bytecodeTargetLevel>
   </component>
 </project>
