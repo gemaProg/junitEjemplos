@@ -9,9 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Database {
-
-
-    private final ArrayList<Alojamiento> alojamientos;
+    private final List<Alojamiento> alojamientos;
 
     public Database() {
         this.alojamientos = new ArrayList<>();
@@ -31,7 +29,7 @@ public class Database {
         }
     }
 
-    public Database (ArrayList<Alojamiento> alojamientos){
+    public Database (List<Alojamiento> alojamientos){
         this.alojamientos = alojamientos;
     }
 
