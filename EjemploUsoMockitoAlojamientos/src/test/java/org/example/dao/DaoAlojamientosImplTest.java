@@ -46,7 +46,10 @@ class DaoAlojamientosTest {
         //then;
         assertAll(
                 () -> assertThat(result).isEqualTo(lista),
-                () -> assertThat(result).isNotNull()
+                () -> {
+                    assert result != null;
+                    assertThat(result.size()).isEqualTo(2);
+                }
         );
     }
 
@@ -58,6 +61,7 @@ class DaoAlojamientosTest {
             Hotel hotel = new Hotel("hotel1", "Lugo", 100.3, new ArrayList<>(List.of(3, 5, 4)), 5);
             //when
             when(database.getListaAlojamientos()).thenReturn(new ArrayList<>());
+
             boolean respuesta = daoAlojamientos.addAlojamiento(hotel);
 
             //then
@@ -146,9 +150,8 @@ class DaoAlojamientosTest {
                 () -> assertThat(respuesta).contains(hotel3),
                 () -> assertThat(respuesta).isNotEqualTo(lista),
                 () -> assertThat(respuesta).size().isEqualTo(2),
-                () -> assertThat(respuesta).containsExactly(hotel1,hotel3));
+                () -> assertThat(respuesta).containsExactly(hotel3,hotel1));
     }
-
     @Nested
     public class Actualizacion {
         @Test

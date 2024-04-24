@@ -50,8 +50,11 @@ public class DaoAlojamientosImpl implements DaoAlojamientos {
 
     public boolean actualizarCategoria(String nombre, int categoria) {
         Hotel h = database.getListaAlojamientos().stream()
-                .filter(Hotel.class::isInstance)
+                //.filter(Hotel.class::isInstance)
+                .filter(a -> a instanceof Hotel)
+                //.filter(a->a.getClass().getSimpleName().equals("Hotel"))
                 .map(Hotel.class::cast)
+                //.map(a->(Hotel)a)
                 .filter(hotel -> hotel.getNombre().equals(nombre)).findFirst().orElse(null);
         if (h != null) {
             try {
@@ -61,9 +64,7 @@ public class DaoAlojamientosImpl implements DaoAlojamientos {
             } catch (CategoriaException e) {
                 throw new RuntimeException(e);
             }
-
         }
-
         return false;
     }
 
