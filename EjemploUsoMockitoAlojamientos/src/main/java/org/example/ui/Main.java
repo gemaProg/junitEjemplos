@@ -7,7 +7,8 @@ import org.apache.logging.log4j.Logger;
 
 @Log4j2
 public class Main {
-    private static final Logger logger = LogManager.getLogger(Main.class);
+    //este atributo no hace falta si utilizamos la anotación
+    //private static final Logger logger = LogManager.getLogger(Main.class);
     public static void main(String[] args) {
         log.error("App arrancada");
         MainAlojamientos main = new MainAlojamientos();
