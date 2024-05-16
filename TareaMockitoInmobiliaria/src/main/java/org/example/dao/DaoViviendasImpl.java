@@ -39,7 +39,7 @@ public class DaoViviendasImpl implements DaoViviendas {
 
     @Override
     public boolean addvivienda(Vivienda vivienda) {
-        return false;
+        return database.getListaViviendas().add(vivienda);
     }
 
     public List<Vivienda> consulta(String provincia, double precio1, double precio2) {
